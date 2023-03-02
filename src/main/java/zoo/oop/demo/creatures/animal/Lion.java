@@ -1,27 +1,24 @@
 package zoo.oop.demo.creatures.animal;
 
 import lombok.ToString;
-import zoo.oop.demo.creatures.animal.type.Carnivorous;
-import zoo.oop.demo.creatures.animal.type.Herbivorous;
 import zoo.oop.demo.creatures.type.Eatable;
 import zoo.oop.demo.exception.CannotEatException;
 
 @ToString
-public class Lion extends Animal implements Carnivorous {
-    public Lion(String name) {
-        super(name);
-    }
+public class Lion extends Animal {
 
     @Override
-    public void eat(Eatable eatable) {
-        if (!canEat(eatable)) {
-            throw new CannotEatException(String.format("%s cannot eat %s%n", this.getClass(), eatable.getClass()));
+    public <E extends Eatable> void eat(E meal) {
+        verifyMeal(meal);
+        super.eat(meal);
+    }
+
+    private void verifyMeal(Object meal) {
+        try {
+            Animal.class.cast(meal);
+        } catch (ClassCastException e) {
+            throw new CannotEatException(String.format("%s cannot eat %s", this.getClass(), meal.getClass()));
         }
-        eatableList.add(eatable);
-    }
 
-    @Override
-    public boolean canEat(Eatable eatable) {
-        return eatable instanceof Herbivorous;
     }
 }
