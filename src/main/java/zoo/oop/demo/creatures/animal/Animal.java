@@ -14,12 +14,12 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @Slf4j
-public abstract class Animal {
+public abstract class Animal implements Eatable {
     private final List<Eatable> eatableList = new ArrayList<>();
 
     public <E extends Eatable> void eat(E meal) {
         if (this.getClass().isInstance(meal)) {
-            throw new CannotEatException(String.format("%s cannot eat %s", this.getClass().getName(), meal.getClass().getName()));
+            throw new CannotEatException(String.format("%s cannot eat %s", this.getClass(), meal.getClass()));
         }
         eatableList.add(meal);
     }

@@ -14,7 +14,6 @@ public class Goat extends Animal implements Eatable {
         } catch (ClassCastException e) {
             throw new CannotEatException(String.format("%s cannot eat %s", this.getClass(), meal.getClass()));
         }
-
     }
 
 }
