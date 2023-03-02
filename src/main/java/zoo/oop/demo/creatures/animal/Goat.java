@@ -13,7 +13,7 @@ public class Goat extends Animal implements Herbivorous {
     @Override
     public void eat(Eatable eatable) {
         if (!canEat(eatable)) {
-            throw new CannotEatException(String.format("%s cannot eat %s%n", this.getName(), eatable.getClass()));
+            throw new CannotEatException(String.format("%s cannot eat %s%n", this.getClass(), eatable.getClass()));
         }
         this.eatableList.add(eatable);
     }
